@@ -8,6 +8,6 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 @Repository
-public interface TipeDb extends JpaRepository<TipeModel, BigInteger>{
-    Optional<TipeModel> findById(BigInteger id);
+public interface TipeDb extends JpaRepository<TipeModel, Long>{
+    Optional<TipeModel> findById(Long id);
 }

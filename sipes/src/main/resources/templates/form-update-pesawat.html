@@ -1,0 +1,47 @@
+<!DOCTYPYE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Update Pesawat </title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<h1 class="text-center" style="margin-top: 30px">Form Ubah Pesawat</h1>
+<form th:action="@{/pesawat/ubah}" th:object="${pesawat}" method = "POST" style="margin-top: 50px; margin-left: 425px; margin-right: 425px">
+    <input type="hidden" th:field="*{id}">
+    <div class="form-group">
+        <label for="maskapai">Maskapai</label>
+        <input class="form-control" type="text" id="maskapai" name="maskapai" th:value="*{maskapai}"/>
+    </div>
+    <div class="form-group">
+        <label for="tanggalDibuat">Tanggal Dibuat</label>
+        <input class="form-control" type="text" id="tanggalDibuat" name="tanggalDibuat" th:value="*{{tanggalDibuat}}"/>
+    </div>
+    <div class="form-group">
+        <label for="tempatDibuat">Tempat Dibuat</label>
+        <input class="form-control" type="text" id="tempatDibuat" name="tempatDibuat" th:value="*{tempatDibuat}"/>
+    </div>
+    <div class="form-group">
+        <label for="jenisPesawat">Jenis</label>
+            <select class="form-control" id="jenisPesawat" name="jenisPesawat" th:value="*{jenisPesawat}">
+                <option value="Komersial">Komersial</option>
+                <option value="Militer">Militer</option>
+            </select>
+    </div>
+    <div class="form-group row">
+        <label for="tipe" class="col-sm-3 col-form-label">Tipe</label>
+            <select class="form-control" id="tipe" name="tipe" th:field="*{tipe}">
+                <option th:value="*{tipe.id}" th:text="*{tipe.nama}"></option>
+            </select>
+    </div>
+    <div class="text-center">
+        <a class="btn btn-sm btn-light btn-outline-dark" th:href="@{/pesawat}"> Batal </a>
+        <button class="btn btn-primary px-3 mx-2" type="submit"> Simpan </button>
+    </div>
+</form>
+</body>
+</html>

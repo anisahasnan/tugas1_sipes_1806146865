@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeId;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
@@ -11,15 +12,18 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "teknisi")
 public class TeknisiModel implements Serializable {
     @Id
-    @Size(max = 20)
+    @Range(min=1, max=20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private Long id;
 
     @NotNull
     @Size(max = 255)
@@ -30,15 +34,14 @@ public class TeknisiModel implements Serializable {
     @Column(name = "nomorTelepon", nullable = false)
     private Long nomorTelepon;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "teknisi")
-    private Set<PesawatModel> listPesawat;
+    @ManyToMany(mappedBy = "listTeknisi", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<PesawatModel> listPesawat = new ArrayList<>();
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,11 +61,11 @@ public class TeknisiModel implements Serializable {
         this.nomorTelepon = nomorTelepon;
     }
 
-    public Set<PesawatModel> getListPesawat() {
+    public List<PesawatModel> getListPesawat() {
         return listPesawat;
     }
 
-    public void setListPesawat(Set<PesawatModel> listPesawat) {
+    public void setListPesawat(List<PesawatModel> listPesawat) {
         this.listPesawat = listPesawat;
     }
 }

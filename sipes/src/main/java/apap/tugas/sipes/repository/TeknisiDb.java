@@ -8,6 +8,6 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 @Repository
-public interface TeknisiDb extends JpaRepository<TeknisiModel, BigInteger>{
-    Optional<TeknisiModel> findById(BigInteger id);
+public interface TeknisiDb extends JpaRepository<TeknisiModel, Long>{
+    Optional<TeknisiModel> findById(Long id);
 }

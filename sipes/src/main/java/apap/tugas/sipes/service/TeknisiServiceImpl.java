@@ -28,7 +28,7 @@ public class TeknisiServiceImpl implements TeknisiService{
     }
 
     @Override
-    public TeknisiModel getTeknisiByIdTeknisi(BigInteger idTeknisi){
+    public TeknisiModel getTeknisiByIdTeknisi(Long idTeknisi){
         try {
             return teknisiDb.findById(idTeknisi).get();
         }

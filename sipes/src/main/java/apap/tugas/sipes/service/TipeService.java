@@ -13,6 +13,6 @@ public interface TipeService {
     List<TipeModel> getTipeList();
 
     // Method mendapatkan data sebuah tipe beradasarkan id
-    TipeModel getTipeByIdTipe(BigInteger idTipe);
+    TipeModel getTipeByIdTipe(Long idTipe);
 
 }

@@ -4,13 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeId;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -18,9 +21,9 @@ import java.util.Date;
 @Table(name = "penerbangan")
 public class PenerbanganModel implements Serializable {
     @Id
-    @Size(max = 20)
+    @Range(min=1, max=20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private Long id;
 
     @NotNull
     @Size(max = 255)
@@ -34,24 +37,25 @@ public class PenerbanganModel implements Serializable {
 
     @NotNull
     @Column(name = "waktuBerangkat", nullable = false)
-    private Date waktuBerangkat;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate waktuBerangkat;
 
     @NotNull
     @Size(max = 255)
     @Column(name = "nomorPenerbangan", nullable = false, unique = true)
     private String nomorPenerbangan;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "idPesawat", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "idPesawat", referencedColumnName = "id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private PesawatModel pesawat;
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,11 +75,11 @@ public class PenerbanganModel implements Serializable {
         this.kodeBandaraTujuan = kodeBandaraTujuan;
     }
 
-    public Date getWaktuBerangkat() {
+    public LocalDate getWaktuBerangkat() {
         return waktuBerangkat;
     }
 
-    public void setWaktuBerangkat(Date waktuBerangkat) {
+    public void setWaktuBerangkat(LocalDate waktuBerangkat) {
         this.waktuBerangkat = waktuBerangkat;
     }
 

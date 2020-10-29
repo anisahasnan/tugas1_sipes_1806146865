@@ -13,6 +13,6 @@ public interface TeknisiService {
     List<TeknisiModel> getTeknisiList();
 
     // Method mendapatkan data sebuah teknisi beradasarkan id
-    TeknisiModel getTeknisiByIdTeknisi(BigInteger idTeknisi);
+    TeknisiModel getTeknisiByIdTeknisi(Long idTeknisi);
 
 }

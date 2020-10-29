@@ -28,7 +28,7 @@ public class TipeServiceImpl implements TipeService{
     }
 
     @Override
-    public TipeModel getTipeByIdTipe(BigInteger idTipe){
+    public TipeModel getTipeByIdTipe(Long idTipe){
         try {
             return tipeDb.findById(idTipe).get();
         }

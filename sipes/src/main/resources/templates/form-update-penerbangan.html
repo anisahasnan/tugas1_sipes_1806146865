@@ -1,0 +1,38 @@
+<!DOCTYPYE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Update Penerbangan </title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<h1 class="text-center" style="margin-top: 30px">Form Ubah Penerbangan</h1>
+<form th:action="@{/penerbangan/ubah}" th:object="${penerbangan}" method = "POST" style="margin-top: 50px; margin-left: 425px; margin-right: 425px">
+    <input type="hidden" th:field="*{id}">
+    <div class="form-group">
+        <label for="kodePenerbangan">Kode Penerbangan</label>
+        <input class="form-control" type="text" id="kodePenerbangan" name="nomorPenerbangan" th:value="*{nomorPenerbangan}"/>
+    </div>
+    <div class="form-group">
+        <label for="kodeBandaraAsal">Kode Bandara Asal</label>
+        <input class="form-control" type="text" id="kodeBandaraAsal" name="kodeBandaraAsal" th:value="*{kodeBandaraAsal}"/>
+    </div>
+    <div class="form-group">
+        <label for="kodeBandaraTujuan">Kode Bandara Tujuan</label>
+        <input class="form-control" type="text" id="kodeBandaraTujuan" name="kodeBandaraTujuan" th:value="*{kodeBandaraTujuan}"/>
+    </div>
+    <div class="form-group">
+        <label for="waktuBerangkat">Waktu Berangkat</label>
+        <input class="form-control" type="date" id="waktuBerangkat" name="waktuBerangkat" th:value="*{{waktuBerangkat}}"/>
+    </div>
+    <div class="text-center">
+        <a class="btn btn-sm btn-light btn-outline-dark" th:href="@{/penerbangan}"> Batal </a>
+        <button class="btn btn-primary px-3 mx-2" type="submit"> Simpan </button>
+    </div>
+</form>
+</body>
+</html>

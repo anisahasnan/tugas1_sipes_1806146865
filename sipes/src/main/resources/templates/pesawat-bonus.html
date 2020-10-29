@@ -1,0 +1,35 @@
+<!DOCTYPYE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Bonus </title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<section style="margin-left: 10px; margin-right: 10px">
+    <br>
+    <h1 class="text-center" style="margin-top: 30px">Jumlah Teknisi Pesawat</h1>
+    <br>
+    <table class="table center" style="width: 80%; margin-left: auto; margin-right: auto;">
+        <thead>
+        <tr class="text-white" style="background: cornflowerblue">
+            <th>No</th>
+            <th>Nomor Seri Pesawat</th>
+            <th>Jumlah Teknisi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pesawat, iterationStatus : ${listPesawat}">
+            <td class="font-weight-bold" th:text="${iterationStatus.count}"></td>
+            <td th:text="${pesawat.nomorSeri}"></td>
+            <td th:text="${listJumlahTeknisi[__${iterationStatus.index}__]}"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>

@@ -4,24 +4,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeId;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 @Entity
 @Table(name = "pesawat")
 public class PesawatModel implements Serializable {
     @Id
-    @Size(max = 20)
+    @Range(min=1, max=20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private Long id;
 
     @NotNull
     @Size(max = 255)
@@ -40,7 +41,8 @@ public class PesawatModel implements Serializable {
 
     @NotNull
     @Column(name = "tanggalDibuat", nullable = false)
-    private Date tanggalDibuat;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate tanggalDibuat;
 
     @NotNull
     @Size(max = 255)
@@ -56,18 +58,17 @@ public class PesawatModel implements Serializable {
     @OneToMany(mappedBy = "pesawat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PenerbanganModel> listPenerbangan;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "pesawat_teknisi",
-            joinColumns = { @JoinColumn(name = "id_pesawat") },
-            inverseJoinColumns = { @JoinColumn(name = "id_teknisi") }
-    )
-    private Set<TeknisiModel> listTeknisi;
+            joinColumns = @JoinColumn(name = "id_pesawat", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_teknisi", referencedColumnName = "id"))
+    private List<TeknisiModel> listTeknisi = new ArrayList<>();
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -95,11 +96,11 @@ public class PesawatModel implements Serializable {
         this.tempatDibuat = tempatDibuat;
     }
 
-    public Date getTanggalDibuat() {
+    public LocalDate getTanggalDibuat() {
         return tanggalDibuat;
     }
 
-    public void setTanggalDibuat(Date tanggalDibuat) {
+    public void setTanggalDibuat(LocalDate tanggalDibuat) {
         this.tanggalDibuat = tanggalDibuat;
     }
 
@@ -127,11 +128,11 @@ public class PesawatModel implements Serializable {
         this.listPenerbangan = listPenerbangan;
     }
 
-    public Set<TeknisiModel> getListTeknisi() {
+    public List<TeknisiModel> getListTeknisi() {
         return listTeknisi;
     }
 
-    public void setListTeknisi(Set<TeknisiModel> listTeknisi) {
+    public void setListTeknisi(List<TeknisiModel> listTeknisi) {
         this.listTeknisi = listTeknisi;
     }
 }
