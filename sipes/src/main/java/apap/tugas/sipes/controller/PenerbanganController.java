@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +57,17 @@ public class PenerbanganController{
     public String addPenerbanganSubmit(
             @ModelAttribute PenerbanganModel penerbangan,
             Model model){
+
+        //Cek duplikat nomor penerbangan
+        List<PenerbanganModel> listPenerbangan = penerbanganService.getPenerbanganList();
+        List<String> listNomorPenerbangan = new ArrayList<>();
+        for(PenerbanganModel eachPenerbangan: listPenerbangan){
+            listNomorPenerbangan.add(eachPenerbangan.getNomorPenerbangan());
+        }
+        if(listNomorPenerbangan.contains(penerbangan.getNomorPenerbangan())){
+            model.addAttribute("nomorPenerbangan", penerbangan.getNomorPenerbangan());
+            return "duplicate-nomor-penerbangan";
+        }
 
         penerbanganService.addPenerbangan(penerbangan);
         model.addAttribute("nomorPenerbangan", penerbangan.getNomorPenerbangan());

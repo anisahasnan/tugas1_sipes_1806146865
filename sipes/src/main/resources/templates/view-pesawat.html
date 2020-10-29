@@ -7,7 +7,7 @@
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
-<body>
+<body style="font-family: 'Poppins', sans-serif;">
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <h1 class="text-center" style="margin-top: 30px; margin-bottom: 30px">Detail Pesawat</h1>
 <table class="table table-borderless center" style="width: 35%; margin-left: auto; margin-right: auto;">
@@ -53,7 +53,7 @@
         <tr th:each="teknisi, iterationStatus : ${listTeknisi}">
             <td class="font-weight-bold" th:text="${iterationStatus.count}"></td>
             <td th:text="${teknisi.nama}"></td>
-            <td th:text="${teknisi.nomorTelepon}"></td>
+            <td th:text="'0'+${teknisi.nomorTelepon}"></td>
         </tr>
         </tbody>
     </table>
@@ -97,6 +97,7 @@
     </tr>
     </tbody>
 </table>
+    <p class="text-center" style="margin-top: 10px; color: #1c7430; font-size: small" th:text="${notifikasi}"></p>
 </section>
 <br><br>
 

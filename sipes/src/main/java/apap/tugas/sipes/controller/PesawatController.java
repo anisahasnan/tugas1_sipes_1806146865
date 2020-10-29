@@ -194,13 +194,15 @@ public class PesawatController{
 
         PenerbanganModel penerbanganNewest = listPenerbangan.get(listPenerbangan.size()-1);
 
+        String notifikasi = "Penerbangan dengan nomor " + penerbanganNewest.getNomorPenerbangan() + " berhasil ditambahkan !";
+
         model.addAttribute("pesawat", pesawatFromDb);
         model.addAttribute("listPenerbangan", listPenerbangan);
         model.addAttribute("listAllPenerbangan", penerbanganService.getPenerbanganListNoPesawat());
         model.addAttribute("listTeknisi", pesawatFromDb.getListTeknisi());
-        model.addAttribute("penerbanganNewest", penerbanganNewest);
+        model.addAttribute("notifikasi", notifikasi);
 
-        return "view-pesawat-tambah-penerbangan";
+        return "view-pesawat";
     }
 
     @GetMapping("/pesawat/filterForm")

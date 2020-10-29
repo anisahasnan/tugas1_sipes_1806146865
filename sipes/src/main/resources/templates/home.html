@@ -8,24 +8,23 @@
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
-<body>
-    <nav th:replace="fragments/fragment :: navbar"></nav>
+<body style="font-family: 'Poppins', sans-serif;">
     <div class="container" style="width: 700px; margin-top: 140px; margin-bottom: 40px;
     background: cornflowerblue; padding: 60px; border-radius: 15px">
-        <h1 class="text-white text-center">Selamat Datang di SIPESAWAT!</h1>
+        <h1 class="text-white text-center" style="font-weight: bold">Selamat Datang di SIPESAWAT!</h1>
     </div>
     <div class="container text-center">
         <h3 class="text-center mb-4">Daftar Fitur:</h3>
         <a class="btn btn-md text-white rounded px-3" style="margin-right: 5px; background: cornflowerblue;
-        border-radius: 10px; width: 11%;" th:href="@{/pesawat}">Pesawat</a>
+        border-radius: 10px; width: 13%;" th:href="@{/pesawat}">Pesawat</a>
         <a class="btn btn-md text-white rounded px-3" style="margin-right: 5px; background: cornflowerblue;
-        border-radius: 10px; width: 11%;" th:href="@{/penerbangan}">Penerbangan</a>
+        border-radius: 10px; width: 13%;" th:href="@{/penerbangan}">Penerbangan</a>
         <a class="btn btn-md text-white rounded px-3" style="margin-right: 5px; background: cornflowerblue;
-        border-radius: 10px; width: 11%;" th:href="@{/pesawat/pesawat-tua}">Cari</a>
+        border-radius: 10px; width: 13%;" th:href="@{/pesawat/pesawat-tua}">Cari</a>
         <a class="btn btn-md text-white rounded px-3" style="margin-right: 5px; background: cornflowerblue;
-        border-radius: 10px; width: 11%;" th:href="@{/pesawat/filterForm}">Filter</a>
+        border-radius: 10px; width: 13%;" th:href="@{/pesawat/filterForm}">Filter</a>
         <a class="btn btn-md text-white rounded px-3" style="margin-right: 5px; background: cornflowerblue;
-        border-radius: 10px; width: 11%;" th:href="@{/pesawat/bonus}">Bonus</a>
+        border-radius: 10px; width: 13%;" th:href="@{/pesawat/bonus}">Bonus</a>
     </div>
 </body>
 </html>
