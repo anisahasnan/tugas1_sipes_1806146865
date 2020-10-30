@@ -1,0 +1,43 @@
+<!DOCTYPYE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> View Penerbangan </title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <h1 class="text-center" style="margin-top: 30px; margin-bottom: 30px">Detail Penerbangan</h1>
+    <table class="table table-borderless center" style="width: 35%; margin-left: auto; margin-right: auto;">
+        <tbody>
+        <tr>
+            <td class="font-weight-bold">Kode Penerbangan</td>
+            <td th:text="${penerbangan.nomorPenerbangan}"></td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold">Kode Bandara Asal</td>
+            <td th:text="${penerbangan.kodeBandaraAsal}"></td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold">Kode Bandara Tujuan</td>
+            <td th:text="${penerbangan.kodeBandaraTujuan}"></td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold">Waktu Berangkat</td>
+            <td th:text="${penerbangan.waktuBerangkat}"></td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold">Nomor Seri Pesawat</td>
+            <div th:if="${hasPesawat}">
+                <td th:text="${pesawat.nomorSeri}"></td>
+            </div>
+            <div th:unless="${hasPesawat}">
+                <td>Belum di-assign pesawat</td>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

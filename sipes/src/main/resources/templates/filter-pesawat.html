@@ -1,0 +1,85 @@
+<!DOCTYPYE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Filter Pesawat </title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<section style="margin-left: 10px; margin-right: 10px">
+    <br>
+    <div class="card center" style="width: 25%; margin-right: auto; margin-left: auto">
+        <div class="card-header text-white font-weight-bold" style="background: cornflowerblue">
+            Cari Pesawat
+        </div>
+        <div class="card-body" style="padding-top: 10px">
+            <form th:action="@{/pesawat/filter}" method="GET">
+                <div class="form-group" style="margin-bottom: 10px">
+                    <label for="penerbangan" class="col-form-label">Penerbangan</label>
+                    <select class="form-control" id="penerbangan" name="idPenerbangan">
+                        <option th:value="0">Pilih Penerbangan</option>
+                        <option th:each="penerbangan: ${listPenerbangan}" th:value="${penerbangan.id}" th:text="${penerbangan.nomorPenerbangan}"></option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px">
+                    <label for="tipe" class="col-form-label">Tipe</label>
+                    <select class="form-control" id="tipe" name="idTipe">
+                        <option th:value="0">Pilih Tipe</option>
+                        <option th:each="tipe: ${listTipe}" th:value="${tipe.id}" th:text="${tipe.nama}"></option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px">
+                    <label for="teknisi" class="col-form-label">Teknisi</label>
+                    <select class="form-control" id="teknisi" name="idTeknisi">
+                        <option th:value="0">Pilih Teknisi</option>
+                        <option th:each="teknisi: ${listTeknisi}" th:value="${teknisi.id}" th:text="${teknisi.nama}"></option>
+                    </select>
+                </div>
+                <div class="form-group" style="float: right; margin-right: 5px;">
+                    <button class="btn btn-block text-white font-weight-bold" style="background: cornflowerblue; width: 70px"> Cari </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<section style="margin-left: 10px; margin-right: 10px; margin-top: 40px;">
+    <table class="table center" style="width: 80%; margin-left: auto; margin-right: auto;">
+        <thead>
+        <tr class="text-white" style="background: cornflowerblue">
+            <th rowspan="2">No</th>
+            <th rowspan="2">Nomor Seri</th>
+            <th rowspan="2">Jenis</th>
+            <th rowspan="2">Tipe</th>
+            <th rowspan="2">Maskapai</th>
+            <th>Nomor Penerbangan</th>
+            <th>Teknisi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pesawat, iterationStatus : ${listPesawatFilter}">
+            <td class="font-weight-bold" th:text="${iterationStatus.count}"></td>
+            <td th:text="${pesawat.nomorSeri}"></td>
+            <td th:text="${pesawat.jenisPesawat}"></td>
+            <td th:text="${pesawat.tipe.nama}"></td>
+            <td th:text="${pesawat.maskapai}"></td>
+            <td>
+                <div th:each="penerbangan, iterStat : ${pesawat.listPenerbangan}">
+                    <div th:text="${penerbangan.nomorPenerbangan}"></div>
+                </div>
+            </td>
+            <td>
+                <div th:each="teknisi, iterStat : ${pesawat.listTeknisi}">
+                    <div th:text="${teknisi.nama}"></div>
+                </div>
+            </td>
+        </tr>
+        <tr></tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>

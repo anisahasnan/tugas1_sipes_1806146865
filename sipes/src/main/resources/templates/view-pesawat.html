@@ -1,0 +1,105 @@
+<!DOCTYPYE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> View Pesawat </title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<h1 class="text-center" style="margin-top: 30px; margin-bottom: 30px">Detail Pesawat</h1>
+<table class="table table-borderless center" style="width: 35%; margin-left: auto; margin-right: auto;">
+    <tbody>
+    <tr>
+        <td class="font-weight-bold">Nomor Seri Pesawat</td>
+        <td th:text="${pesawat.nomorSeri}"></td>
+    </tr>
+    <tr>
+        <td class="font-weight-bold">Jenis Pesawat</td>
+        <td th:text="${pesawat.jenisPesawat}"></td>
+    </tr>
+    <tr>
+        <td class="font-weight-bold">Nama Tipe Pesawat</td>
+        <td th:text="${pesawat.tipe.nama}"></td>
+    </tr>
+    <tr>
+        <td class="font-weight-bold">Maskapai</td>
+        <td th:text="${pesawat.maskapai}"></td>
+    </tr>
+    <tr>
+        <td class="font-weight-bold">Tempat Dibuat</td>
+        <td th:text="${pesawat.tempatDibuat}"></td>
+    </tr>
+    <tr>
+        <td class="font-weight-bold">Tanggal Dibuat</td>
+        <td th:text="${{pesawat.tanggalDibuat}}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<section>
+    <h3 class="text-center" style="margin-top: 40px; margin-bottom: 30px">Daftar Teknisi</h3>
+    <table class="table table-borderless center" style="width: 30%;margin-left: auto; margin-right: auto;">
+        <thead>
+        <tr class="text-white" style="background: cornflowerblue">
+            <th>No</th>
+            <th>Nama</th>
+            <th>Nomor Telepon</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teknisi, iterationStatus : ${listTeknisi}">
+            <td class="font-weight-bold" th:text="${iterationStatus.count}"></td>
+            <td th:text="${teknisi.nama}"></td>
+            <td th:text="'0'+${teknisi.nomorTelepon}"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<h3 class="text-center" style="margin-top: 40px; margin-bottom: 10px">Daftar Penerbangan</h3>
+<section style="margin-right: 20%; margin-left: 60%">
+<form th:action="@{|/pesawat/${pesawat.id}/tambah-penerbangan|}" th:object="${pesawat}" method = "POST">
+    <input type="hidden" th:field="*{id}">
+    <label for="penerbangan" class="col-form-label">Tambah Penerbangan</label>
+    <div class="form-group row">
+        <div class="col-sm-7">
+            <select class="form-control" id="penerbangan" name="penerbangan" th:field="*{listPenerbangan}">
+                <option style="width: 30%" th:each="penerbangan: ${listAllPenerbangan}" th:value="${penerbangan.id}" th:text="${penerbangan.nomorPenerbangan}"></option>
+            </select>
+        </div>
+        <div class="col-sm-5">
+            <button class="btn btn-primary px-3" type="submit"> Tambah </button>
+        </div>
+    </div>
+</form>
+</section>
+<section>
+<table class="table table-borderless center" style="width: 60%;margin-left: auto; margin-right: auto;">
+    <thead>
+    <tr class="text-white" style="background: cornflowerblue">
+        <th>No</th>
+        <th>Nomor Penerbangan</th>
+        <th>Bandara Asal</th>
+        <th>Bandara Tujuan</th>
+        <th>Waktu Berangkat</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="penerbangan, iterationStatus : ${listPenerbangan}">
+        <td class="font-weight-bold" th:text="${iterationStatus.count}"></td>
+        <td th:text="${penerbangan.nomorPenerbangan}"></td>
+        <td th:text="${penerbangan.kodeBandaraAsal}"></td>
+        <td th:text="${penerbangan.kodeBandaraTujuan}"></td>
+        <td th:text="${penerbangan.waktuBerangkat}"></td>
+    </tr>
+    </tbody>
+</table>
+    <p class="text-center" style="margin-top: 10px; color: #1c7430; font-size: small" th:text="${notifikasi}"></p>
+</section>
+<br><br>
+
+</body>
+</html>
